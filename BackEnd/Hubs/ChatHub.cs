@@ -10,7 +10,7 @@ namespace BackEnd.Hubs
     public class ChatHub : Hub
     {
         [Microsoft.AspNetCore.Authorization.Authorize()]
-        public async Task SendMessage(string user, string message)
+        public async Task SendMessage(string user, string message, string grupo)
         {             
             Console.WriteLine(Context.Items);
             List<Claim> claim = Context.User.Claims.ToList();            
@@ -19,10 +19,10 @@ namespace BackEnd.Hubs
             //    if (c.Type == "nombre" && c.Value == "Isaías") isIsa = true;
             //});
             //await Clients.Caller.SendAsync("Message", user, message, isIsa);            
-            await Clients.Group("NewGroup").SendAsync("Message", user, message, Context.ConnectionId);
+            await Clients.Group(grupo).SendAsync("Message", user, message, Context.ConnectionId);
         }
         /// <summary>
-        /// Agregar a un grupo de signal r en el override
+        /// Agregar a un grupo en la primera conección
         /// </summary>
         /// <returns></returns>
         public override async Task OnConnectedAsync()
