@@ -27,15 +27,13 @@ See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
 ## Install the Back End
 
 The Back End uses .Net Core 3.1, install first the SDK.
-Also uses a private library to create JWT, so implement your own method to create a JWT
-if you don't have access to this library.
 
 Open the BackEnd.sln solution and wait for it to install the dependencies.
 
 ### Run the project
 
-In Visual Studio 2019 click on BackEnd to run a console.
-Also, run the project with a console
+In Visual Studio 2019 click on BackEnd.
+Also, run the project in a console
 
 ```bash
 dotnet run
