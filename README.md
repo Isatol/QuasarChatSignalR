@@ -1,5 +1,7 @@
 # SignalR Chat With Quasar Chat Message Component
 
+![Example chat](https://i.ibb.co/xjzPW3B/Anotaci-n-2020-06-30-114430.jpg)
+
 ## Install the Front End
 
 ```bash
