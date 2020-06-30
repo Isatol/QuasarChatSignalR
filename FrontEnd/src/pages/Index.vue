@@ -5,31 +5,14 @@
       <q-input v-model="nombText" label="Nombre"></q-input>
       <q-input v-model="mensText" label="Mensaje"></q-input>
       <br />
-      <q-btn
-        color="primary"
-        @click="EnviarMensaje()"
-        label="Enviar"
-        :disable="disable"
-      ></q-btn>
-      <q-btn
-        label="Agregar a grupo"
-        color="primary"
-        @click="AddToGroup()"
-      ></q-btn>
+      <q-btn color="primary" @click="EnviarMensaje()" label="Enviar" :disable="disable"></q-btn>
+      <q-btn label="Agregar a grupo" color="primary" @click="AddToGroup()"></q-btn>
       <!-- <span>{{conexionLista ? "Conexión lista al HUB" : "Sin conexión al Hub"}}</span>
         <ul v-for="(chat, i) in listaMensajes" :key="i">
           <li>{{chat.nombre}} dijo {{chat.msj}}</li>
       </ul>-->
-      <div
-        style="width: 100%; max-width: 400px"
-        v-for="(chat, i) in listaMensajes"
-        :key="i"
-      >
-        <q-chat-message
-          :name="chat.nombre"
-          :text="[chat.msj]"
-          :sent="chat.sent"
-        ></q-chat-message>
+      <div style="width: 100%; max-width: 400px" v-for="(chat, i) in listaMensajes" :key="i">
+        <q-chat-message :name="chat.nombre" :text="[chat.msj]" :sent="chat.sent"></q-chat-message>
       </div>
     </div>
   </div>
@@ -58,6 +41,7 @@ export default {
   created() {
     this.Login();
     this.Inicializar();
+    localStorage.setItem("group", "ChatGroup");
   },
   computed: {
     lastElement() {
@@ -82,7 +66,6 @@ export default {
         });
     },
     RecibirMensaje() {
-      let esIsa = this.nombText === "Isaías";
       connection.on("Message", (user, message, ConnectionId) => {
         console.log(ConnectionId);
         var msg = message
@@ -99,7 +82,12 @@ export default {
     },
     EnviarMensaje() {
       connection
-        .invoke("SendMessage", this.nombText, this.mensText)
+        .invoke(
+          "SendMessage",
+          this.nombText,
+          this.mensText,
+          localStorage.getItem("group")
+        )
         .catch(err =>
           console.error("Error al enviar mensaje: " + err.toString())
         );
@@ -127,7 +115,7 @@ export default {
         method: "get",
         params: {
           connID: idParam,
-          grupo: "Ethel"
+          grupo: localStorage.getItem("group")
         },
         headers: {
           "Content-Type": "application/json"
