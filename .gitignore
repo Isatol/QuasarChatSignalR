@@ -1,0 +1,5 @@
+BackEnd/bin/
+BackEnd/obj/
+FrontEnd/.vscode/
+FrontEnd/.quasar/
+FrontEnd/node_modules/
