@@ -43,7 +43,7 @@ namespace BackEnd.Controllers
         [HttpGet, Route("[action]")]
         public async Task<IActionResult> AddToGroup(string connID, string grupo)
         {            
-            await _chatHub.Groups.AddToGroupAsync(connID, "NewGroup");            
+            await _chatHub.Groups.AddToGroupAsync(connID, grupo);            
             return StatusCode(200, new { 
                 message = "Operation completed successfully"
             });
